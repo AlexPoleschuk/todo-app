@@ -1,0 +1,34 @@
+// sizes
+$s: 16px;
+
+//font
+$primary_font_style: helvetica;
+$primary_font_size: $s;
+
+.container {
+    display: flex;
+    align-items:center;
+    justify-content:center;
+}
+
+header, .main, footer {
+    @extend .container;
+}
+
+header {
+    flex: 1 0 auto;
+    height: 10vh;
+}
+
+.main {
+    flex: 1 0 auto;
+    height: 80vh;
+    font-size: $primary_font_size;
+    font-family: $primary_font_style;
+    flex-direction: column;
+}
+
+footer {
+    flex: 0 0 auto;
+    height: 10vh;
+}
