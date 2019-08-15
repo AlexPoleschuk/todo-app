@@ -26,6 +26,10 @@ header {
     font-size: $primary_font_size;
     font-family: $primary_font_style;
     flex-direction: column;
+    li {
+        list-style-type: none; 
+        padding-bottom: $s;
+    }
 }
 
 footer {
