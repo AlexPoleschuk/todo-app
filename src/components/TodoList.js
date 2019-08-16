@@ -1,52 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  selectItem,
-  setItemDone,
-  deleteItem,
-} from '../store/actions';
+import { selectItem, setItemDone, deleteItem } from '../store/actions';
 import {
   errMessage,
   donePhrase,
   deletePhrase,
   inProgressPhrase,
 } from '../model/constants';
+import styles from '../css/common.module.scss';
 
 const TodoList = ({ todoList, dispatch }) => (
-  <div>
+  <>
     {todoList.size !== 0 ? (
-      <ul>
+      <ul className={styles.todo_list}>
         {[...todoList.entries()].map((item) => {
           const [todoId, todoData] = item;
           const { theme, text, done } = todoData;
 
           return (
             <li key={todoId}>
-              {!done ? (
-                <button
-                  type="button"
-                  onClick={() => dispatch({
-                    type: setItemDone,
-                    payload: todoId,
-                  })}
-                >
-                  {inProgressPhrase}
-                </button>
-              ) : (
-                <span>{donePhrase}</span>
-              )}
               <button
                 type="button"
+                disable={done.toString()}
+                className={done ? styles.done_flag : styles.set_done_btn}
+                onClick={() => dispatch({
+                  type: setItemDone,
+                  payload: todoId,
+                })}
+              >
+                {done ? donePhrase : inProgressPhrase}
+              </button>
+              <button
+                type="button"
+                className={styles.todo_body}
                 onClick={() => dispatch({
                   type: selectItem,
                   payload: todoId,
                 })}
               >
-                <h5>{theme}</h5>
+                <h4>{theme}</h4>
                 <span>{text}</span>
               </button>
               <button
                 type="button"
+                className={styles.delete_btn}
                 onClick={() => dispatch({
                   type: deleteItem,
                   payload: todoId,
@@ -61,8 +58,7 @@ const TodoList = ({ todoList, dispatch }) => (
     ) : (
       errMessage
     )}
-    <ul />
-  </div>
+  </>
 );
 
 TodoList.propTypes = {
