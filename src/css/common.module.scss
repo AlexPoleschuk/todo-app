@@ -1,9 +1,16 @@
 // sizes
+$xs: 8px;
 $s: 16px;
+$btn_width_s: 100px;
 
 //font
 $primary_font_style: helvetica;
 $primary_font_size: $s;
+
+//colors
+$done_green: #00B945;
+$delete_red: #FF4040;
+$border_grey: #DDDDDD;
 
 .container {
     display: flex;
@@ -26,13 +33,130 @@ header {
     font-size: $primary_font_size;
     font-family: $primary_font_style;
     flex-direction: column;
-    li {
-        list-style-type: none; 
-        padding-bottom: $s;
+    .todo_list {
+        @extend .custom_scroll;
+        overflow-y: auto;
+        height: 58vh;
+        min-width: 70vw;
+        li {
+            display: flex;
+            justify-content: space-between;
+            list-style-type: none; 
+            padding-bottom: $s;
+            .set_done_btn {
+                padding: $xs;
+                min-width: $btn_width_s;
+                border: 1px solid $done_green;
+                border-top-left-radius: $s;
+                border-bottom-left-radius: $s;
+                &:hover {
+                    background: $done_green;
+                    color: white;
+                }
+            }
+            .done_flag {
+                @extend .set_done_btn;
+                cursor: default;
+                background: $done_green;
+                color: white;
+            }
+            .todo_body {
+                display:flex;
+                flex-direction: column;
+                flex: 1 0 auto;
+                h4 {
+                    padding: $xs;
+                }
+                span {
+                    padding: $xs;
+                }
+                border: 1px solid $border_grey;
+                border-left: none;
+                border-right: none;
+                width: 50vw;
+            }
+            .delete_btn {
+                padding: $xs;
+                min-width: $btn_width_s;
+                border: 1px solid $delete_red;
+                border-top-right-radius: $s;
+                border-bottom-right-radius: $s;
+                &:hover {
+                    background:$delete_red;
+                    color: white;
+                }
+            }
+        }
+    }
+    .todo_form {
+        @extend .container;
+        margin-top: 3vh;
+        flex-direction: column;
+        min-width: 70vw;
+        textarea {
+            padding: $xs/2;
+            resize: none;
+            outline: none;
+            min-width: 70vw;
+            margin-bottom: $xs;
+            &:focus {
+                border-color: $done_green;
+            }
+          }
+          .add_todo_btn {
+            padding: $xs;
+            min-width: 70vw;
+           
+            border-bottom-left-radius: $s;
+            border-bottom-right-radius: $s;
+            &:disabled {
+                border: 1px solid $border_grey;
+            }
+            &:enabled  {
+                border: 1px solid $done_green;
+                &:hover {
+                    background: $done_green;
+                    color: white;
+                }
+            }
+          }
     }
 }
 
 footer {
     flex: 0 0 auto;
     height: 10vh;
+}
+
+button, 
+button:active, 
+button:focus {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer; 
+    outline: none;
+}
+
+.custom_scroll {
+    &::-webkit-scrollbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 1vw;
+        background-color: white;
+        border: 1px solid $border_grey;
+        border-radius: 8px;
+      }
+      &::-webkit-scrollbar-thumb {
+        width: 4px;
+        border: 4px solid $border_grey;
+        border-radius: 8px;
+        background-color: $border_grey;
+      }
+      &::-webkit-scrollbar-track {
+        border-radius: 4px;
+      }
 }
